@@ -1,0 +1,27 @@
+name: Deploy Site
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - name: Install dependencies
+      run: npm install
+    - name: Build site
+      run: npx @11ty/eleventy
+    - name: Deploy site
+      env:
+        IPFS_DEPLOY_CLOUDFLARE__API_TOKEN: ${{ secrets['IPFS_DEPLOY_CLOUDFLARE__API_TOKEN'] }}
+        IPFS_DEPLOY_CLOUDFLARE__ZONE: 'dgregory.dev'
+        IPFS_DEPLOY_CLOUDFLARE__RECORD: '_dnslink.dgregory.dev'
+        IPFS_DEPLOY_PINATA__API_KEY: ${{ secrets['IPFS_DEPLOY_PINATA__API_KEY'] }}
+        IPFS_DEPLOY_PINATA__SECRET_API_KEY: ${{ secrets['IPFS_DEPLOY_PINATA__SECRET_API_KEY'] }}
+      run: npx ipfs-deploy -p pinata -d cloudflare
