@@ -3,25 +3,30 @@ name: Deploy Site
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12'
-    - name: Install dependencies
-      run: npm install
-    - name: Build site
-      run: npx @11ty/eleventy
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build
+      run: npm ci
+      run: npm run build
     - name: Deploy site
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        cname: dgregory.dev
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: ${{ github.event.head_commit.message }}
+    - name: Cloudflare Cache Purge Action
+      uses: NathanVaughn/actions-cloudflare-purge@v1.1.0
+      if: success()
       env:
-        IPFS_DEPLOY_CLOUDFLARE__API_TOKEN: ${{ secrets['IPFS_DEPLOY_CLOUDFLARE__API_TOKEN'] }}
-        IPFS_DEPLOY_CLOUDFLARE__ZONE: 'dgregory.dev'
-        IPFS_DEPLOY_CLOUDFLARE__RECORD: '_dnslink.dgregory.dev'
-        IPFS_DEPLOY_PINATA__API_KEY: ${{ secrets['IPFS_DEPLOY_PINATA__API_KEY'] }}
-        IPFS_DEPLOY_PINATA__SECRET_API_KEY: ${{ secrets['IPFS_DEPLOY_PINATA__SECRET_API_KEY'] }}
-      run: npx ipfs-deploy -p infura -p pinata -d cloudflare
+        CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+        CLOUDFLARE_AUTH_KEY: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
