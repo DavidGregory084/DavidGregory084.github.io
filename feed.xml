@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>David Gregory</title>
+  <subtitle>A personal blog about software development</subtitle>
+  <link href="https://www.dgregory.dev/feed.xml" rel="self"/>
+  <link href="https://www.dgregory.dev"/>
+  
+  <id>https://www.dgregory.dev</id>
+  <author>
+    <name>David Gregory</name>
+    <email>david@dgregory.dev</email>
+  </author>
+</feed>
