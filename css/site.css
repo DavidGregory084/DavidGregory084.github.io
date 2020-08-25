@@ -1,3 +1,4 @@
+/* basics */
 body {
     background-color: #fffbef;
     color: #3b2f2f;
@@ -9,13 +10,33 @@ body {
     margin: 40px auto;
 }
 
+a {
+    color: #cb4b16;
+}
+
+a:visited {
+    color: #dc322f;
+}
+
+p {
+    margin: 20px;
+}
+
+.caption {
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-left: 0;
+}
+
+/* the default code style in PrismJS has really large text */
+code[class*="language-"], pre[class*="language-"] {
+    font-size: 16px;
+}
+
+/* 2 column layout */
 img {
     width: auto;
     height: 100%;
-}
-
-code[class*="language-"], pre[class*="language-"] {
-    font-size: 16px;
 }
 
 .row {
@@ -23,19 +44,25 @@ code[class*="language-"], pre[class*="language-"] {
     flex-wrap: wrap;
 }
 
+.column {
+    flex: 1 1 50%;
+}
+
 @media (max-width: 700px) {
+    /* collapse to 1 column on small devices */
     .row {
         flex-direction: column;
         align-items: center;
     }
 }
 
-.column {
-    flex: 1 1 50%;
+/* header navigation */
+ol {
+    padding: 0;
 }
 
-p {
-    margin: 20px;
+li {
+    list-style: none;
 }
 
 header > nav {
@@ -56,6 +83,7 @@ header > * li {
 }
 
 @media (max-width: 700px) {
+    /* collapse to columnar nav layout on small devices */
     header > h1 {
         text-align: center;
     }
@@ -68,20 +96,4 @@ header > * li {
     header > * li {
         padding: 5px;
     }
-}
-
-a {
-    color: #cb4b16;
-}
-
-a:visited {
-    color: #dc322f;
-}
-
-ol {
-    padding: 0;
-}
-
-li {
-    list-style: none;
 }
