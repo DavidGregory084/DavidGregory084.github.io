@@ -1,5 +1,9 @@
 /* basics */
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
     background-color: #fffbef;
     color: #3b2f2f;
 
@@ -7,7 +11,18 @@ body {
     font-size: 19px;
 
     max-width: 700px;
-    margin: 40px auto;
+
+    margin: auto;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    flex-shrink: 0;
+    font-size: 16px;
+    margin: 10px 0;
 }
 
 a {
@@ -16,10 +31,6 @@ a {
 
 a:visited {
     color: #dc322f;
-}
-
-p {
-    margin: 20px;
 }
 
 .caption {
@@ -45,7 +56,12 @@ img {
 }
 
 .column {
-    flex: 1 1 50%;
+    flex: 1 0 50%;
+    overflow: hidden;
+}
+
+.column > p {
+    margin: 20px;
 }
 
 @media (max-width: 700px) {
