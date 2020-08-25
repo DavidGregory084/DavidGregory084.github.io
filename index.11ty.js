@@ -47,7 +47,7 @@ class Home {
         return `
         <h3>
             Posts
-            <a href="/feed.xml" aria-label="RSS feed" title="RSS feed">
+            <a href="/feed.xml" aria-label="Atom feed" title="Atom feed">
                 <i aria-hidden="true" class="fas fa-rss fa-xs"></i>
             </a>
         </h3>
